@@ -47,13 +47,18 @@ export function isClosed(str = '') {
 }
 
 export function Input(props) {
-  const [text, setText] = useState('');
-  function onInputKeyPress(event) {
-    const code = event.keyCode || event.which;
-    if (code === 13) triggerIsClosed();
-  }
+  // const [text, setText] = useState('');
+  // function onInputKeyPress(event) {
+  //   const code = event.keyCode || event.which;
+  //   if (code === 13) triggerIsClosed();
+  // }
   return (
-    <input type="text" value={text} onChange={e => setText(e.target.value)} onKeyPress={} />
+    <input
+      type="text"
+      value="aloha"
+      // onChange={e => setText(e.target.value)}
+      // onKeyPress={onInputKeyPress}
+    />
   );
 }
 

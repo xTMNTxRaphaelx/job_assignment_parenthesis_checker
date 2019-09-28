@@ -32,6 +32,11 @@ describe('Button', () => {
 
 describe('`isClosed()` function', () => {
   it('returns a boolean', () => {
-    expect(isClosed('^^')).toBe(false);
+    expect(isClosed('^123^abc$$')).toBe(true);
+    expect(isClosed('^$')).toBe(true);
+    expect(isClosed('$^')).toBe(false);
+    expect(isClosed('^^$$')).toBe(true);
+    expect(isClosed('^$$^')).toBe(false);
+    expect(isClosed('^$^$')).toBe(true);
   });
 });
