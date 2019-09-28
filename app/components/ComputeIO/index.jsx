@@ -33,9 +33,17 @@
 import React, { useState } from 'react';
 
 export function isClosed(str = '') {
-  str.split('').filter(c => c === '^' || c === '$');
-  
-  return false;
+  const stack = [];
+  const OPENING_CHARACTER = '^';
+  const strWithReserveChars = str.replace(/[^-\^\$]+/g, '');
+  for (let i = 0; i < strWithReserveChars.length; i++) {
+    const char = strWithReserveChars[i];
+    if (char === OPENING_CHARACTER) stack.push(char);
+    else {
+      if (stack.pop() !== OPENING_CHARACTER) return false;
+    }
+  }
+  return stack.length === 0;
 }
 
 export function Input(props) {
