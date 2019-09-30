@@ -1,31 +1,35 @@
 import React from 'react';
-import * as Enzyme from 'enzyme';
+import { configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import { ComputeIO, Input, Output, Button, isClosed } from '../ComputeIO';
+import { shallow } from 'enzyme';
+
+configure({ adapter: new Adapter() });
 
 describe('ComputeIO', () => {
   it('should return an element.', () => {
-    const wrapper = Enzyme.shallow(<ComputeIO />);
+    const wrapper = shallow(<ComputeIO />);
     expect(wrapper.exists()).toBe(true);
   });
 });
 
 describe('Input', () => {
   it('should return an element.', () => {
-    const wrapper = Enzyme.shallow(<Input />);
+    const wrapper = shallow(<Input />);
     expect(wrapper.exists()).toBe(true);
   });
 });
 
 describe('Output', () => {
   it('should return an element.', () => {
-    const wrapper = Enzyme.shallow(<Output />);
+    const wrapper = shallow(<Output />);
     expect(wrapper.exists()).toBe(true);
   });
 });
 
 describe('Button', () => {
   it('should return an element.', () => {
-    const wrapper = Enzyme.shallow(<Button />);
+    const wrapper = shallow(<Button />);
     expect(wrapper.exists()).toBe(true);
   });
 });
@@ -33,10 +37,5 @@ describe('Button', () => {
 describe('`isClosed()` function', () => {
   it('returns a boolean', () => {
     expect(isClosed('^123^abc$$')).toBe(true);
-    expect(isClosed('^$')).toBe(true);
-    expect(isClosed('$^')).toBe(false);
-    expect(isClosed('^^$$')).toBe(true);
-    expect(isClosed('^$$^')).toBe(false);
-    expect(isClosed('^$^$')).toBe(true);
   });
 });
