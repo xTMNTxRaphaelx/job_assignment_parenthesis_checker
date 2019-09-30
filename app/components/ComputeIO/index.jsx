@@ -32,6 +32,25 @@
  */
 import React, { useState } from 'react';
 
+export function Input({ value, onChange, triggerResult }) {
+  function onInputKeyPress(event) {
+    const code = event.keyCode || event.which;
+    if (code === 13) triggerResult();
+  }
+  return (
+    <input
+      type="text"
+      value={value}
+      onChange={e => onChange(e.target.value)}
+      onKeyPress={onInputKeyPress}
+    />
+  );
+}
+
+export function Button({ triggerResult }) {
+  return <button onClick={triggerResult}>Check</button>;
+}
+
 export function isClosed(str = '') {
   const stack = [];
   const OPENING_CHARACTER = '^';
@@ -46,38 +65,46 @@ export function isClosed(str = '') {
   return stack.length === 0;
 }
 
-export function Input(props) {
-  // const [text, setText] = useState('');
-  // function onInputKeyPress(event) {
-  //   const code = event.keyCode || event.which;
-  //   if (code === 13) triggerIsClosed();
-  // }
+export function Output({ value = '' }) {
+  return <div>Answer is : {value.toString()}</div>;
+}
+
+export function ComputeIO() {
+  const [string, setString] = useState('');
+  const [result, setResult] = useState('');
+  function showOutput() {
+    setResult(isClosed(string));
+  }
   return (
-    <input
-      type="text"
-      value="aloha"
-      // onChange={e => setText(e.target.value)}
-      // onKeyPress={onInputKeyPress}
-    />
+    <section>
+      <Input value={string} onChange={setString} triggerResult={showOutput} />
+      <Button triggerResult={showOutput} />
+      <Output value={result} />
+    </section>
   );
 }
 
-export function Button(props) {
-  return <button onClick={props.triggerIsClosed} />;
-}
+// export class ComputeIO extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       inputValue: '',
+//       output: false
+//     };
+//     this.showOutput = this.showOutput.bind(this);
+//   }
 
-export function Output(props) {
-  return <div />;
-}
+//   showOutput(str) {
+//     this.setState('output', isClosed(str));
+//   }
 
-export class ComputeIO extends React.Component {
-  render() {
-    return (
-      <section>
-        <Input />
-        <Button />
-        <Output />
-      </section>
-    );
-  }
-}
+//   render() {
+//     return (
+//       <section>
+//         <Input value= triggerIsClosed={this.showOutput} />
+//         <Button triggerIsClosed={this.showOutput} />
+//         <Output value={this.state.output} />
+//       </section>
+//     );
+//   }
+// }
