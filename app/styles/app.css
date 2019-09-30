@@ -1,6 +1,7 @@
-@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300);
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400, 300);
 
-html, body {
+html,
+body {
   font-family: 'Source Sans Pro', sans-serif;
   height: 100vh;
   width: 100%;
@@ -28,14 +29,14 @@ h1 {
 
 .challenge-accepted {
   display: flex;
-  align-items: center;
   justify-content: center;
-  text-align: center;
+  /* align-items: center;
+  text-align: center; */
 }
 
 .button-container {
   border: 3px dashed #eee6fa;
-  padding: 137px;
+  /* padding: 137px; */
 }
 
 .instructions {
@@ -47,4 +48,23 @@ h1 {
 .max-width {
   max-width: 960px;
   margin: 0 auto;
+}
+
+.assignment-wrapper {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  min-width: 680px;
+  min-height: 420px;
+}
+
+.assignment {
+  flex: 1;
+  padding: 27px;
+  text-align: center;
+}
+
+.output-wrapper {
+  padding: 27px;
+  text-align: center;
 }

@@ -31,6 +31,10 @@
  *     - "^123^abc$$" => true
  */
 import React, { useState, useReducer } from 'react';
+import styles from '../../styles/app.css';
+import { ThumbsUpSVG, ThumbsDownSVG } from './thumb-svgs';
+// import ThumbsUp from '../../styles/icons8-facebook-like-64.png';
+// import ThumbsDown from '../../styles/icons8-thumbs-down-64.png';
 import { historyState, reducer } from './historyStore';
 
 export function Input({ value, onChange, triggerResult }) {
@@ -68,7 +72,13 @@ export function isClosed(str = '') {
 }
 
 export function Output({ value = '' }) {
-  return <div>Answer is : {value.toString()}</div>;
+  return (
+    <div>
+      {/* <img src={value ? ThumbsDown : ThumbsUp} /> */}
+      {value ? <ThumbsUpSVG /> : <ThumbsDownSVG />}
+      <p>Answer is : {value.toString()}</p>
+    </div>
+  );
 }
 
 export function ComputeIO() {
@@ -79,14 +89,23 @@ export function ComputeIO() {
     const result = isClosed(string);
     setResult(result);
     dispatch({ type: 'ADD_HISTORY', history: [`${string} : ${result}`] });
+    setString('');
   }
   return (
-    <section>
-      <Input value={string} onChange={setString} triggerResult={showOutput} />
-      <Button triggerResult={showOutput} />
-      <Output value={result} />
-      <div>
-        <h6>History</h6>
+    <section className={styles['assignment-wrapper']}>
+      <div className={styles['assignment']}>
+        <div>
+          <Input
+            value={string}
+            onChange={setString}
+            triggerResult={showOutput}
+          />
+          <Button triggerResult={showOutput} />
+        </div>
+        <Output className={styles['output-wrapper']} value={result} />
+      </div>
+      <div className="history">
+        <p>History</p>
         {historyList.map(history => (
           <p>{history}</p>
         ))}
