@@ -30,7 +30,7 @@
  *     - "^$^$" => true
  *     - "^123^abc$$" => true
  */
-import React, { useState } from 'react';
+import React, { useState, useReducer } from 'react';
 
 export function Input({ value, onChange, triggerResult }) {
   function onInputKeyPress(event) {
@@ -55,6 +55,7 @@ export function isClosed(str = '') {
   const stack = [];
   const OPENING_CHARACTER = '^';
   const strWithReserveChars = str.replace(/[^-\^\$]+/g, '');
+  if (strWithReserveChars.length === 0) return false; // no characters were present
   for (let i = 0; i < strWithReserveChars.length; i++) {
     const char = strWithReserveChars[i];
     if (char === OPENING_CHARACTER) stack.push(char);
@@ -69,17 +70,36 @@ export function Output({ value = '' }) {
   return <div>Answer is : {value.toString()}</div>;
 }
 
+const historyState = [];
+function reducer(state, action) {
+  switch (action.type) {
+    case 'ADD_HISTORY':
+      return [...state, ...action.history];
+    default:
+      throw new Error();
+  }
+}
+
 export function ComputeIO() {
   const [string, setString] = useState('');
   const [result, setResult] = useState('');
+  const [historyList, dispatch] = useReducer(reducer, historyState);
   function showOutput() {
-    setResult(isClosed(string));
+    const result = isClosed(string);
+    setResult(result);
+    dispatch({ type: 'ADD_HISTORY', history: [`${string} : ${result}`] });
   }
   return (
     <section>
       <Input value={string} onChange={setString} triggerResult={showOutput} />
       <Button triggerResult={showOutput} />
       <Output value={result} />
+      <div>
+        <h6>History</h6>
+        {historyList.map(history => (
+          <p>{history}</p>
+        ))}
+      </div>
     </section>
   );
 }
