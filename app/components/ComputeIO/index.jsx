@@ -31,6 +31,7 @@
  *     - "^123^abc$$" => true
  */
 import React, { useState, useReducer } from 'react';
+import { historyState, reducer } from './historyStore';
 
 export function Input({ value, onChange, triggerResult }) {
   function onInputKeyPress(event) {
@@ -70,16 +71,6 @@ export function Output({ value = '' }) {
   return <div>Answer is : {value.toString()}</div>;
 }
 
-const historyState = [];
-function reducer(state, action) {
-  switch (action.type) {
-    case 'ADD_HISTORY':
-      return [...state, ...action.history];
-    default:
-      throw new Error();
-  }
-}
-
 export function ComputeIO() {
   const [string, setString] = useState('');
   const [result, setResult] = useState('');
@@ -103,28 +94,3 @@ export function ComputeIO() {
     </section>
   );
 }
-
-// export class ComputeIO extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       inputValue: '',
-//       output: false
-//     };
-//     this.showOutput = this.showOutput.bind(this);
-//   }
-
-//   showOutput(str) {
-//     this.setState('output', isClosed(str));
-//   }
-
-//   render() {
-//     return (
-//       <section>
-//         <Input value= triggerIsClosed={this.showOutput} />
-//         <Button triggerIsClosed={this.showOutput} />
-//         <Output value={this.state.output} />
-//       </section>
-//     );
-//   }
-// }
