@@ -33,8 +33,6 @@
 import React, { useState, useReducer } from 'react';
 import styles from '../../styles/app.css';
 import { ThumbsUpSVG, ThumbsDownSVG } from './thumb-svgs';
-// import ThumbsUp from '../../styles/icons8-facebook-like-64.png';
-// import ThumbsDown from '../../styles/icons8-thumbs-down-64.png';
 import { historyState, reducer } from './historyStore';
 
 export function Input({ value, onChange, triggerResult }) {
@@ -44,6 +42,7 @@ export function Input({ value, onChange, triggerResult }) {
   }
   return (
     <input
+      className={styles['inputBox']}
       type="text"
       value={value}
       onChange={e => onChange(e.target.value)}
@@ -53,7 +52,11 @@ export function Input({ value, onChange, triggerResult }) {
 }
 
 export function Button({ triggerResult }) {
-  return <button onClick={triggerResult}>Check</button>;
+  return (
+    <button className={styles['submit']} onClick={triggerResult}>
+      Check
+    </button>
+  );
 }
 
 export function isClosed(str = '') {
@@ -73,10 +76,10 @@ export function isClosed(str = '') {
 
 export function Output({ value = '' }) {
   return (
-    <div>
+    <div className={styles['resultWrapper']}>
       {/* <img src={value ? ThumbsDown : ThumbsUp} /> */}
       {value ? <ThumbsUpSVG /> : <ThumbsDownSVG />}
-      <p>Answer is : {value.toString()}</p>
+      <p className={styles['resultText']}>Answer is : {value.toString()}</p>
     </div>
   );
 }
@@ -94,7 +97,7 @@ export function ComputeIO() {
   return (
     <section className={styles['assignment-wrapper']}>
       <div className={styles['assignment']}>
-        <div>
+        <div className={styles['inputWrapper']}>
           <Input
             value={string}
             onChange={setString}
@@ -102,10 +105,10 @@ export function ComputeIO() {
           />
           <Button triggerResult={showOutput} />
         </div>
-        <Output className={styles['output-wrapper']} value={result} />
+        <Output value={result} />
       </div>
-      <div className="history">
-        <p>History</p>
+      <div className={styles['history']}>
+        <h6 className={styles['historyTitle']}>You looked for :</h6>
         {historyList.map(history => (
           <p>{history}</p>
         ))}

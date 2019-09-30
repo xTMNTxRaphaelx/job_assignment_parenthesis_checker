@@ -8,7 +8,7 @@ export const historyState = [];
 export function reducer(state, action) {
   switch (action.type) {
     case 'ADD_HISTORY':
-      return [...state, ...action.history];
+      return [...action.history, ...state];
     default:
       throw new Error();
   }

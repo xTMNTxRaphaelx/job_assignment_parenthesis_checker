@@ -64,7 +64,63 @@ h1 {
   text-align: center;
 }
 
+.inputWrapper {
+  position: relative;
+}
+.inputBox {
+  box-sizing: border-box;
+  width: 100%;
+  height: 54px;
+  border-radius: 3px;
+  border-color: #483470;
+  padding: 6px;
+  padding-right: 64px;
+  color: #483470;
+  font-size: 21px;
+}
+
+.submit {
+  position: absolute;
+  top: 0px;
+  right: 0;
+  height: 54px;
+  width: 60px;
+  background-color: #483470;
+  color: #fff;
+  border: 0;
+  border-radius: 3px;
+  font-weight: bold;
+}
+
 .output-wrapper {
   padding: 27px;
   text-align: center;
+}
+
+.resultWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 6px;
+  margin-top: 18px;
+}
+
+.resultText {
+  margin: 0;
+  font-weight: bold;
+  margin-top: 6px;
+}
+
+.history {
+  flex: 0 0 240px;
+  overflow: auto;
+  background-color: #f5f5f5;
+  padding: 6px;
+}
+.historyTitle {
+  font-weight: bold;
+  font-size: 16px;
+  margin: 3px 0 6px;
+  border-bottom: 1px solid #616161;
 }
